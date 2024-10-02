@@ -1,0 +1,46 @@
+<?php require_once 'X:\Web\www\srtm\private\lib\wact-0.2a/template/components/form/form.inc.php';
+require_once 'X:\Web\www\srtm\private\lib\wact-0.2a/template/components/list/list.inc.php';
+function tpld83a84736f1a1527d1b179e577cc84691(&$root) {
+$root->prepare(); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<base href="<?php echo htmlspecialchars($root->get('base'), ENT_QUOTES); ?>">
+<style type="text/css">@import url(js/jscalendar-1.0/calendar-green.css);</style>
+<title>Autentificación</title>
+</head>
+
+<body onload="document.login.username.focus()">
+<?php $root->children['login']->prepare(); ?><form<?php $root->children['login']->renderAttributes(); ?>><?php $root->children['login']->renderState(); ?>
+<div align="center">
+<?php $root->children['login']->children['inputErrorsList']->registerDataSet($root->children['login']->getErrorDataSet());$root->children['login']->children['inputErrorsList']->prepare();$A=&$root->children['login']->children['inputErrorsList']->_datasource;if ($A->next()) { ?>
+    <?php do {  ?>
+		<font color="red"><?php echo htmlspecialchars($A->get('inputErrorMessage'), ENT_QUOTES); ?></font><br />
+    <?php } while ($A->next()); ?>
+<?php } ?>
+<?php $B = $root->children['login']->_datasource->get('loginErrorMessage');if (!empty($B) || $B === "0" || $B === 0) { ?>
+	<font color="red"><?php echo htmlspecialchars($root->get('loginErrorMessage'), ENT_QUOTES); ?></font><br />
+<?php } ?>
+</div>
+<table border="1" align="center" class="calendar">
+  <tr>
+    <td><label<?php $root->children['login']->children['id003']->renderAttributes(); ?>>Usuario: </label></td>
+    <td><input<?php $root->children['login']->children['username']->renderAttributes(); ?> /></td>
+  </tr>
+  <tr>
+    <td><label<?php $root->children['login']->children['id004']->renderAttributes(); ?>>Contrase&ntilde;a: </label></td>
+    <td><input<?php $root->children['login']->children['password']->renderAttributes(); ?> /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><div align="center">
+      <input<?php $root->children['login']->children['enviar']->renderAttributes(); ?> />
+    </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<?php  }
+function tpld83a84736f1a1527d1b179e577cc84692(&$root) {
+$root->addChild(new FormComponent(), 'login');$root->children['login']->addChild(new ListComponent(), 'inputErrorsList');$root->children['login']->addChild(new LabelComponent(), 'id003');$root->children['login']->children['id003']->attributes = unserialize('a:1:{s:3:"for";s:9:"textfield";}');$root->children['login']->addChild(new InputFormElement(), 'username');$root->children['login']->children['username']->attributes = unserialize('a:3:{s:4:"type";s:4:"text";s:4:"name";s:8:"username";s:2:"id";s:8:"username";}');$root->children['login']->children['username']->displayname = 'Usuario';$root->children['login']->addChild(new LabelComponent(), 'id004');$root->children['login']->children['id004']->attributes = unserialize('a:1:{s:3:"for";s:5:"label";}');$root->children['login']->addChild(new FormElement(), 'password');$root->children['login']->children['password']->attributes = unserialize('a:3:{s:4:"type";s:8:"password";s:4:"name";s:8:"password";s:2:"id";s:8:"password";}');$root->children['login']->children['password']->displayname = 'Contraseña';$root->children['login']->addChild(new FormElement(), 'enviar');$root->children['login']->children['enviar']->attributes = unserialize('a:4:{s:4:"type";s:6:"submit";s:4:"name";s:6:"enviar";s:5:"value";s:6:"Enviar";s:2:"id";s:6:"enviar";}');$root->children['login']->attributes = unserialize('a:3:{s:2:"id";s:5:"login";s:4:"name";s:5:"login";s:6:"method";s:4:"post";}'); }
+$GLOBALS['TemplateRender'][$this->codefile] = 'tpld83a84736f1a1527d1b179e577cc84691';$GLOBALS['TemplateConstruct'][$this->codefile] = 'tpld83a84736f1a1527d1b179e577cc84692'; ?>

@@ -1,0 +1,4 @@
+﻿<!ENTITY junkButton.label "Indésirable">
+<!ENTITY notJunkButton.label "Acceptable">
+<!ENTITY junkButton.tooltip "Marquer les messages sélectionnés comme indésirables">
+<!ENTITY notJunkButton.tooltip "Marquer les messages sélectionnés comme acceptables">

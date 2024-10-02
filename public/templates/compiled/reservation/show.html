@@ -1,0 +1,183 @@
+<?php require_once 'X:\Web\www\srtm\private\lib\wact-0.2a/template/components/data/math_filter.inc.php';
+require_once 'X:\Web\www\srtm\private\lib\wact-0.2a/template/components/list/list.inc.php';
+function tplb156977fd8a6b5327abbf4d4fa4cfbe41(&$root) {
+$root->prepare(); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<title>Reservación en Línea del Tiempo de Máquina</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<base href="<?php echo htmlspecialchars($root->get('base'), ENT_QUOTES); ?>">
+
+<!-- Stylr for calendar -->
+<style type="text/css">@import url(js/jscalendar-1.0/calendar-green.css);</style>
+<style type="text/css">
+  .special { background-color: #00FF00; }
+</style>
+
+<script type="text/javascript" src="js/jscalendar-1.0/calendar.js"></script>
+<script type="text/javascript" src="js/jscalendar-1.0/lang/calendar-es.js"></script>
+<script type="text/javascript" src="js/jscalendar-1.0/calendar-setup.js"></script>
+</head>
+<body>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top" width="100">
+			<div id="userinfo-container" class="calendar">	
+				<?php $A = $root->get('username');if (!empty($A) || $A === "0" || $A === 0) { ?>
+				<table width="100%" border="0" cellspacing="5" cellpadding="5">
+					<tr>
+						<td>
+							<a href="index.php/login/"><img src="img/logout.gif" border="0" alt="Salir"></a>
+							<?php $B = $root->get('mutationname');if (!empty($B) || $B === "0" || $B === 0) { ?>
+							<a href="index.php/alias/"><img src="img/mutate.gif" border="0" alt="Cambiar el nombre"></a>
+							<?php } ?>
+						</td>
+					</tr>
+					<tr>
+						<td nowrap><strong>Usuario:</strong></td>
+						<?php $C = $root->get('mutationname');if (!empty($C) || $C === "0" || $C === 0) { ?>
+						<td nowrap><?php echo htmlspecialchars($root->get('mutationname'), ENT_QUOTES); ?></td>
+						<?php } ?>
+						<?php $D = $root->get('mutationname');if (empty($D)  && $D !== "0" && $D !== 0) { ?>
+						<td nowrap><?php echo htmlspecialchars($root->get('username'), ENT_QUOTES); ?></td>
+						<?php } ?>
+					</tr>
+					<tr>
+						<td nowrap><strong>Tiempo sin reservar:</strong></td>
+						<td nowrap><?php echo htmlspecialchars(math_filter($root->get('remanent'),'/60','X:\Web\www\srtm\public/templates/source/reservation/show.html','47'), ENT_QUOTES); ?> minutos</td>
+					</tr>
+				</table>
+				<?php } ?>
+				<?php $E = $root->get('username');if (empty($E)  && $E !== "0" && $E !== 0) { ?>
+				<table width="100%" border="0" cellspacing="0" cellpadding="5">
+					<tr>
+						<td align="center" valign="middle"><a href="index.php/login/">Autentificarse</a></td>
+					</tr>
+					<tr>
+						<td align="center" valign="middle"><a href="index.php/login/"><img src="img/login.gif" border="0" alt="Autentificarse"></a></td>
+					</tr>
+				</table>
+				<?php } ?>
+			</div>
+		</td>
+	    <td nowrap align="center" valign="top"><img src="img/mapa_red_estudiantes.jpg" alt="Mapa del Laboratorio"></td>
+	    <td width="200" nowrap align="right">
+			<div id="calendar-container"></div>
+			<script type="text/javascript">
+				var SPECIAL_DAYS =
+				[<?php $root->children['reservableDateList']->prepare();$F=&$root->children['reservableDateList']->_datasource;if ($F->next()) {$G = FALSE;do { if ($G) { ?>,<?php }$G = TRUE; ?>'<?php echo htmlspecialchars($F->get('date'), ENT_QUOTES); ?>'<?php } while ($F->next());} ?>];  
+				function ourDateStatusFunc(date, y, m, d) {
+					mydate = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+					for (var i in SPECIAL_DAYS){
+						if (mydate == SPECIAL_DAYS[i]) {
+							return 'special';
+						}
+					}
+					return false;
+				};
+			  
+			  function dateChanged(calendar) {
+				// Beware that this function is called even if the end-user only
+				// changed the month/year.  In order to determine if a date was
+				// clicked you can use the dateClicked property of the calendar:
+				if (calendar.dateClicked) {
+				  // OK, a date was clicked, redirect to /yyyy/mm/dd/index.php
+				  var y = calendar.date.getFullYear();
+				  var m = calendar.date.getMonth();     // integer, 0..11
+				  var d = calendar.date.getDate();      // integer, 1..31
+				  var date = Date.UTC(y, m, d)/1000+18000;
+				  var date = new Date();
+				  date = y + "-" + (m + 1) + "-" + d;
+				  // redirect...
+				  window.location = "<?php echo htmlspecialchars($root->get('base'), ENT_QUOTES); ?>index.php/reservacion/mostrar/?date=" + date;
+				}
+			  };
+			
+			  Calendar.setup(
+				{
+				  flat			: "calendar-container", // ID of the parent element
+				  flatCallback	: dateChanged,           // our callback function
+				  date			: '<?php $H=$root->get('date');echo htmlspecialchars(strftime('%Y/%m/%d',(($H)?strtotime($H):"")), ENT_QUOTES); ?>',
+				  showOthers	: true,
+				  dateStatusFunc: ourDateStatusFunc
+				}
+			  );
+			</script>
+		</td>
+	</tr>
+</table>
+<?php $I = $root->get('errorMessage');if (!empty($I) || $I === "0" || $I === 0) { ?>
+<table cellpadding="0" cellspacing="0" border="0" align="center">
+	<tr>
+		<td bgcolor="#CCCC33">
+			<table cellpadding="0" cellspacing="1" border="0" width="100%" class="calendar">
+				<tr>
+					<td bgcolor="#FFFFCC">
+						<table cellpadding="0" cellspacing="5" border="0" width="100%">
+							<tr>
+								<td width="1%" valign="middle"><img src="img/warning.gif"></td>
+								<td align="left" valign="middle"><strong>Error</strong></td>
+							</tr>
+							<tr>
+								<td colspan="2" valign="top" align="left"><font color="red"><?php echo htmlspecialchars($root->get('errorMessage'), ENT_QUOTES); ?></font></td>
+							</tr>
+							<tr>
+								<td colspan="2" valign="top" align="center"><a href="javascript:window.history.back(-1);">Regresar</a></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<?php } ?>
+<?php $J = $root->get('errorMessage');if (empty($J)  && $J !== "0" && $J !== 0) { ?>
+<br />
+<div id="occupation-container">
+<?php $root->children['occupationsList']->prepare();$K=&$root->children['occupationsList']->_datasource;if ($K->next()) { ?>
+<table class="calendar" cellpadding="5" cellspacing="1" align="center">
+	<tr>
+		<th>Computadora</th>
+		<th>D&iacute;a</th>	
+		<th></th>
+		<th>Turno</th>
+		<th></th>
+	</tr>
+	<?php do {  ?>
+	<tr>
+		<td nowrap="nowrap"><?php echo htmlspecialchars($K->get('computerHostname'), ENT_QUOTES); ?></td>
+		<td nowrap="nowrap"><a href="index.php/reservacion/mostrar/?date=<?php echo htmlspecialchars($K->get('date_real'), ENT_QUOTES); ?>"><?php echo htmlspecialchars($K->get('date'), ENT_QUOTES); ?></a></td>
+		<td>:::</td>
+		<td nowrap="nowrap">
+		<a href="index.php/reservacion/mostrar/?date=<?php echo htmlspecialchars($K->get('date_real'), ENT_QUOTES); ?>#<?php echo htmlspecialchars($K->get('time_real'), ENT_QUOTES); ?>"><?php echo htmlspecialchars($K->get('datetime_initial'), ENT_QUOTES); ?> a <?php echo htmlspecialchars($K->get('datetime_final'), ENT_QUOTES); ?></a></td>
+		<td nowrap="nowrap">
+		<?php $L = $K->get('datetime');if ($L >= date('Y-m-d H:i:s', strtotime('2007-07-28 01:09:28') + 3600)) { ?>
+			<a href="index.php/reservacion/borrar/?id=<?php echo htmlspecialchars($K->get('id'), ENT_QUOTES); ?>&date=<?php echo htmlspecialchars($root->get('date'), ENT_QUOTES); ?>"><img src="img/delete.gif" border="0" alt="Borrar reservación"></a>
+		<?php } ?>
+		</td>
+	</tr>
+	<?php } while ($K->next()); ?>
+		
+</table>
+<?php } else {  ?>
+	<?php $M = $K->get('username');if (!empty($M) || $M === "0" || $M === 0) { ?>
+	<table class="calendar" cellpadding="5" cellspacing="1" align="center">
+		<tr><td><img src="img/information.gif"></td><td>No tiene reservaciones para esta semana</td></tr>
+	<table>	
+	<?php } ?>
+	<?php } ?>
+<br />
+</div>
+<table<?php $root->children['matrix']->renderAttributes(); ?>><?php $root->children['matrix']->render(); ?></table>
+<?php } ?>
+</body>
+<!--<br/><div align="center" class="calendar">Grupo <a href="mailto:yosmany@uclv.edu.cu">FIMaster</a> &copy; 2005 <br> Este sistema es completamente un producto del Software Libre.</div>-->
+</html>
+<?php  }
+function tplb156977fd8a6b5327abbf4d4fa4cfbe42(&$root) {
+$root->addChild(new ListComponent(), 'reservableDateList');$root->addChild(new ListComponent(), 'occupationsList');$root->addChild(new TagComponent(), 'matrix');$root->children['matrix']->attributes = unserialize('a:1:{s:2:"id";s:6:"matrix";}');$root->children['matrix']->IsDynamicallyRendered = TRUE; }
+$GLOBALS['TemplateRender'][$this->codefile] = 'tplb156977fd8a6b5327abbf4d4fa4cfbe41';$GLOBALS['TemplateConstruct'][$this->codefile] = 'tplb156977fd8a6b5327abbf4d4fa4cfbe42'; ?>

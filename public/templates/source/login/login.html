@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<base href="{$base}">
+<style type="text/css">@import url(js/jscalendar-1.0/calendar-green.css);</style>
+<title>Autentificación</title>
+</head>
+
+<body onload="document.login.username.focus()">
+<form id="login" name="login" method="post" runat="server">
+<div align="center">
+<errorsummary id='inputErrorsList'>
+    <list:item>
+		<font color="red">{$inputErrorMessage}</font><br/>
+    </list:item>
+</errorsummary>
+<core:optional for="loginErrorMessage">
+	<font color="red">{$#loginErrorMessage}</font><br/>
+</core:optional>
+</div>
+<table border="1" align="center" class="calendar">
+  <tr>
+    <td><label for="textfield">Usuario: </label></td>
+    <td><input type="text" name="username" id="username" displayname="Usuario"/></td>
+  </tr>
+  <tr>
+    <td><label for="label">Contrase&ntilde;a: </label></td>
+    <td><input type="password" name="password" id="password" displayname="Contraseña"/></td>
+  </tr>
+  <tr>
+    <td colspan="2"><div align="center">
+      <input type="submit" name="enviar" value="Enviar" id="enviar" />
+    </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
